@@ -38,6 +38,43 @@ bash install_dev.sh
 - pandas==0.19.2
 - Additional: xlsxwriter, python-pptx, lxml, ftfy, xmltodict
 
+## Streamlit GUI
+
+A web-based graphical interface is available for Quantipy, providing interactive access to core functionality without requiring code.
+
+### Running the Streamlit App
+
+```bash
+# Install Streamlit dependencies
+pip install -r requirements_streamlit.txt
+
+# Start the application
+streamlit run streamlit_app.py
+
+# Or use the launcher script
+./run_streamlit.sh
+```
+
+The app will open at `http://localhost:8501`
+
+### GUI Architecture
+
+The Streamlit app uses a multi-page architecture with session state for data persistence:
+
+- **`streamlit_app.py`**: Main entry point and home page
+- **`pages/01_Data_Loader.py`**: Data import from multiple formats (Quantipy, CSV, SPSS)
+- **`pages/02_Data_Explorer.py`**: Variable browsing, frequencies, crosstabs, metadata viewing
+- **`pages/03_Analysis.py`**: Batch creation and analysis configuration
+- **`pages/04_Results.py`**: Results viewing and export (Excel, CSV, Quantipy format)
+
+Key implementation notes:
+- Session state (`st.session_state`) maintains dataset, stack, and batches across pages
+- Uses Plotly for interactive visualizations
+- Temporary files for upload/download operations (cleaned up after use)
+- Compatible with Python 2.7 Streamlit versions
+
+See `STREAMLIT_README.md` for detailed GUI documentation.
+
 ## Testing
 
 ### Run All Tests
